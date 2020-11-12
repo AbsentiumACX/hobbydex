@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CharacterController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,7 +17,4 @@ use Illuminate\Support\Facades\Route;
 Auth::routes();
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/character', [App\Http\Controllers\CharacterController::class, 'index'])->name('character');
-Route::post('/character/delete/{id}',
-    ['as' => 'character.delete',
-    'uses' => 'CharacterController@delete']);
+Route::resource('character', CharacterController::class);
