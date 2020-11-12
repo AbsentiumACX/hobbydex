@@ -57,8 +57,8 @@ class CharacterController extends Controller
 
         Character::create($request->all());
 
-        return redirect()->route('projects.index')
-            ->with('success', 'Project created successfully.');
+        return redirect()->route('character.index')
+            ->with('success', 'Character created successfully.');
     }
 
     /**
