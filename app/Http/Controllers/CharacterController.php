@@ -89,9 +89,10 @@ class CharacterController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function destroy(int $id)
+    public function destroy(int $id, Request $request)
     {
         $character = Character::find($id);
         $character->delete();
