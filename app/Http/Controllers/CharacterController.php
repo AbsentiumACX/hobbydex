@@ -25,7 +25,7 @@ class CharacterController extends Controller
      */
     public function index()
     {
-        $characters = Auth::user()->with('Characters')->get()->toArray()->characters;
+        $characters = Auth::user()->with('Characters')->get()->characters->toArray();
 	    return view('characters', ['characters' => $characters]);
     }
 
