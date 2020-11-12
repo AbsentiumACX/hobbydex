@@ -8,7 +8,7 @@
                 <div class="card-header">{{ __('Characters') }}</div>
 
                 <div class="card-body">
-                    <table>
+                    <table width="100%" cellpadding="0" cellspacing="0" border="1">
                         <tr>
                             <th>{{ __('Character name') }}</th>
                             <th>{{ __('Generation of game') }}</th>
