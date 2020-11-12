@@ -26,7 +26,7 @@ class CharacterController extends Controller
     public function index()
     {
         $currentUser = Auth::id();
-        $characters = Character::where('user_id', '=', $currentUser)->get()->toArray();
+        $characters = Character::where('user_id', '=', $currentUser)->get();
 	    return view('characters', ['characters' => $characters]);
     }
 
