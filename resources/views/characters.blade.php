@@ -22,7 +22,9 @@
                                     @method('DELETE')
 
                                     <button type="submit" title="delete" style="border: none; background-color:transparent;">
-                                        <i class="fas fa-trash fa-lg text-danger"></i>
+                                        <svg class="bi" width="32" height="32" fill="currentColor">
+                                            <use xlink:href="bootstrap-icons.svg#trash"/>
+                                        </svg>
 
                                     </button>
                                 </td>
