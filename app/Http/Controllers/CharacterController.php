@@ -53,7 +53,11 @@ class CharacterController extends Controller
             'generation' => 'required',
         ]);
 
-        Character::create($request->all() + ['user_id' => Auth::id()]);
+        $request->request->add(['user_id' => Auth::id()]);
+
+        dd($request);
+
+        Character::create($request->all());
 
         return redirect()->route('projects.index')
             ->with('success', 'Project created successfully.');
