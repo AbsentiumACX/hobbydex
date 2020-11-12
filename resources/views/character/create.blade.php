@@ -42,6 +42,7 @@
                     <input type="number" name="generation" class="form-control" min="1" max="8">
                 </div>
             </div>
+            <input type="hidden" name="user_id" value="{{ Auth::user()->id) }}">
             <div class="col-xs-12 col-sm-12 col-md-12 text-center">
                 <button type="submit" class="btn btn-primary">Submit</button>
             </div>
