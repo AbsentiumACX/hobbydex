@@ -37,7 +37,7 @@ class CharacterController extends Controller
      */
     public function create()
     {
-        //
+        return view('character.create');
     }
 
     /**
