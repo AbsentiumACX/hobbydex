@@ -8,11 +8,7 @@
                 <div class="card-header">{{ __('Characters') }}</div>
 
                 <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
+                    <?php print_r($characters); ?>
 
                 </div>
             </div>

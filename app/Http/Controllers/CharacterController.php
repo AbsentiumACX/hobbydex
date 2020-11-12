@@ -24,7 +24,9 @@ class CharacterController extends Controller
      */
     public function index()
     {
-	return view('characters');
+        $user = Auth::user();
+        $characters = $user->characters();
+	    return view('characters', ['characters' => $characters]);
     }
 
     /**
