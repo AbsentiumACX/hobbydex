@@ -11,7 +11,7 @@
                     <table class="table table-striped" width="100%">
                         <tr>
                             <th scope="col">{{ __('Character name') }}</th>
-                            <th scope="col">>{{ __('Generation of game') }}</th>
+                            <th scope="col">{{ __('Generation of game') }}</th>
                         </tr>
                         @foreach($characters as $character)
                             <tr>
