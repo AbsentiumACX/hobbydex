@@ -21,7 +21,7 @@
 </head>
 <body>
     <div id="app">
-        @include('app.menu')
+        @include('layouts.menu')
 
         <main class="py-4">
             @yield('content')
