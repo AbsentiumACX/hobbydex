@@ -19,7 +19,7 @@
                                 <td>{{ $character->name }}</td>
                                 <td>{{ $character->generation }}</td>
                                 <td>
-                                    <form action="{{ route('projects.destroy', $character->id) }}" method="POST">
+                                    <form action="{{ route('character.destroy', $character->id) }}" method="POST">
                                         @csrf
                                         @method('DELETE')
 
