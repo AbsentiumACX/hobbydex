@@ -10,8 +10,8 @@
                 <div class="card-body">
                     <table>
                         <tr>
-                            <th>{{ __('Character name')) }}</th>
-                            <th>{{ __('Generation of game')) }}</th>
+                            <th>{{ __('Character name') }}</th>
+                            <th>{{ __('Generation of game') }}</th>
                         </tr>
                         @foreach($characters as $character)
                             <tr>
