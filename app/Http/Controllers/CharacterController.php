@@ -27,7 +27,7 @@ class CharacterController extends Controller
     {
         $currentUser = Auth::id();
         $characters = Character::where('user_id', '=', $currentUser)->get();
-	    return view('characters', ['characters' => $characters]);
+	    return view('character.index', ['characters' => $characters]);
     }
 
     /**
@@ -48,7 +48,16 @@ class CharacterController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'generation' => 'required',
+        ]);
+
+        dd($request);
+        Character::create($request->all());
+
+        return redirect()->route('projects.index')
+            ->with('success', 'Project created successfully.');
     }
 
     /**
