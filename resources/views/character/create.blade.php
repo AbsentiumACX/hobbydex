@@ -7,7 +7,7 @@
             <div class="card">
                 <div class="card-header">
                     <div class="col-lg-12 margin-tb">
-                        <div class="pull-left">
+                        <div class="float-left">
                             <h2>Add New Character</h2>
                         </div>
                     </div>
