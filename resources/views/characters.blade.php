@@ -8,8 +8,18 @@
                 <div class="card-header">{{ __('Characters') }}</div>
 
                 <div class="card-body">
-                    <?php print_r($characters); ?>
-
+                    <table>
+                        <tr>
+                            <th>{{ __('Character name')) }}</th>
+                            <th>{{ __('Generation of game')) }}</th>
+                        </tr>
+                        @foreach($characters as $character)
+                            <tr>
+                                <td>{{ $character->name }}</td>
+                                <td>{{ $character->generation }}</td>
+                            </tr>
+                        @endforeach
+                    </table>
                 </div>
             </div>
         </div>
