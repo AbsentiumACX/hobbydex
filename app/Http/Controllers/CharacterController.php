@@ -24,7 +24,7 @@ class CharacterController extends Controller
      */
     public function index()
     {
-        return view('characters');
+	return view('characters');
     }
 
     /**
