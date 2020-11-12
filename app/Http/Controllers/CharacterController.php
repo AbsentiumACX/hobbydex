@@ -51,8 +51,9 @@ class CharacterController extends Controller
         $request->validate([
             'name' => 'required',
             'generation' => 'required',
-            'user_id' => 'required',
         ]);
+
+        $request->request->add(['user_id' => Auth::id()]);
 
         Character::create($request->all());
 

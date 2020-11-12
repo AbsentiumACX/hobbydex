@@ -11,7 +11,8 @@ class Character extends Model
 
     protected $fillable = [
         'name',
-        'generation'
+        'generation',
+        'user_id'
     ];
 
 
