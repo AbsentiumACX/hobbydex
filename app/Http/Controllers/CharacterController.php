@@ -52,8 +52,8 @@ class CharacterController extends Controller
             'name' => 'required',
             'generation' => 'required',
         ]);
+        $request['user_id'] = Auth::id();
 
-        dd($request);
         Character::create($request->all());
 
         return redirect()->route('projects.index')
