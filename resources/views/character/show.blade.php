@@ -9,10 +9,10 @@
                 <div class="card-header">
                     <div class="row">
                         <div class="col-lg-12 margin-tb">
-                            <div class="pull-left">
+                            <div class="float-left">
                                 <h2>  {{ $character->name }}</h2>
                             </div>
-                            <div class="pull-right">
+                            <div class="float-right">
                                 <a class="btn btn-primary" href="{{ route('character.index') }}" title="Go back">
                                     <i class="fas fa-backward "></i> </a>
                             </div>
