@@ -38,7 +38,7 @@
                                 <td>{{ $character->generation }}</td>
                                 <td>
                                     <form action="{{ route('character.destroy', $character->id) }}" method="POST">
-                                        <a href="{{ route('character.show', $project->id) }}" title="show">
+                                        <a href="{{ route('character.show', $character->id) }}" title="show">
                                             <i class="fas fa-eye text-success  fa-lg"></i>
                                         </a>
 
