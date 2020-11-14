@@ -80,7 +80,7 @@ class CharacterController extends Controller
      */
     public function edit(Character $character)
     {
-        //
+        return view('character.show', compact('character'));
     }
 
     /**
