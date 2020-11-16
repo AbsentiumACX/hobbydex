@@ -42,6 +42,8 @@
                     </div>
                 </div>
             </div>
+            <div class="clearfix"><br></div>
+            @include('pokedex.show')
         </div>
     </div>
 </div>

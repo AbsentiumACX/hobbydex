@@ -16,7 +16,13 @@ class Character extends Model
     ];
 
 
-    public function user() {
+    public function user ()
+    {
         return $this->belongsTo('App\Models\User');
+    }
+
+    public function pokedex ()
+    {
+        return $this->hasOne('App\Models\Pokedex');
     }
 }

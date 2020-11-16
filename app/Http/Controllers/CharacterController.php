@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Character;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 
 class CharacterController extends Controller
@@ -13,99 +15,126 @@ class CharacterController extends Controller
      *
      * @return void
      */
-    public function __construct()
+    public function __construct ()
     {
         $this->middleware('auth');
     }
 
     /**
-     * Display a listing of the resource.
+     * Display a listing of the characters.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
-    public function index()
+    public function index ()
     {
         $currentUser = Auth::id();
         $characters = Character::where('user_id', '=', $currentUser)->get();
-	    return view('character.index', ['characters' => $characters]);
+        return view('character.index', ['characters' => $characters]);
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show the form for creating a new character.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
-    public function create()
+    public function create ()
     {
         return view('character.create');
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a new character in the database.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return RedirectResponse
      */
-    public function store(Request $request)
+    public function store (Request $request)
     {
         $request->validate([
             'name' => 'required',
-            'generation' => 'required',
+            'generation' => 'required|numeric|min:1|max:8',
         ]);
 
         $request->request->add(['user_id' => Auth::id()]);
 
-        Character::create($request->all());
-
-        return redirect()->route('character.index')
-            ->with('success', 'Character created successfully.');
+        try {
+            $character = Character::create($request->all());
+            $apiRequest = $this->createPokedexStoreRequest($character->generation, $character->id);
+            try {
+                $apiResponse = app()->handle($apiRequest);
+                return redirect()->route('character.index')
+                    ->with('success', 'Character ' . $request['name'] . ' created successfully.');
+            } catch (\Exception $e) {
+                return response($e->getMessage());
+            }
+        } catch (\Exception $e) {
+            return response($e->getMessage());
+        }
     }
 
     /**
-     * Display the specified resource.
+     * Create a request for storing a new pokedex during character creation.
      *
-     * @param  \App\Models\Character  $character
-     * @return \Illuminate\Http\Response
+     * @param int $generation
+     * @param int $characterId
+     * @return Request
      */
-    public function show(Character $character)
+    private function createPokedexStoreRequest (int $generation, int $characterId)
     {
-        return view('character.show', compact('character'));
+        return Request::create('/api/pokedex', 'POST',
+            ['generation' => $generation, 'character_id' => $characterId], [], [], $_SERVER);
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Display the character.
      *
-     * @param  \App\Models\Character  $character
-     * @return \Illuminate\Http\Response
+     * @param Character $character
+     * @return Response
      */
-    public function edit(Character $character)
+    public function show (Character $character)
     {
-        //
+        $pokedex = $character->pokedex()->first();
+
+        return view('character.show')
+            ->with(compact('character'))
+            ->with(compact('pokedex'));
     }
 
     /**
-     * Update the specified resource in storage.
+     * Remove the specified character and pokedex from the database.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Character  $character
-     * @return \Illuminate\Http\Response
+     * @param Character $character
+     * @return RedirectResponse
      */
-    public function update(Request $request, Character $character)
+    public function destroy (Character $character)
     {
-        //
+        $characterName = $character->name;
+        try {
+            $pokedex = $character->pokedex()->first();
+            $destroyRequest = $this->createPokedexDestroyRequest($pokedex->id);
+            try {
+                $destroyResponse = app()->handle($destroyRequest);
+            } catch (\Exception $e) {
+                return response($e->getMessage());
+            }
+
+            $character->delete();
+            return redirect()->route('character.index')
+                ->with('success', 'Character ' . $characterName . ' deleted successfully');
+        } catch (\Exception $e) {
+            return response($e->getMessage());
+        }
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Create a request for destroying a pokedex during character destruction
      *
-     * @param  \App\Models\Character  $character
-     * @return \Illuminate\Http\Response
+     * @param int $id
+     * @return Request
      */
-    public function destroy(Character $character)
+    private function createPokedexDestroyRequest (int $id)
     {
-        $character->delete();
-
-        return redirect()->route('character.index')
-            ->with('success', 'Project deleted successfully');
+        return Request::create('/api/pokedex/' . $id, 'DELETE',
+            [], [], [], $_SERVER);
     }
 }
