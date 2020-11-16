@@ -1,4 +1,4 @@
-#The hobbydex
+# The hobbydex
 The hobbydex is being created for easier access to your pokedexes across multiple generations of games. 
 
 To get started with this project:
